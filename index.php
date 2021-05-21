@@ -2,9 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
-require_once 'extensiones/PHPMailer/src/Exception.php';
-require_once 'extensiones/PHPMailer/src/PHPMailer.php';
-require_once 'extensiones/PHPMailer/src/SMTP.php';
+require_once "controladores/Productos.controlador.php";
 
-$index = new ControladorPlantilla();
-$index -> ctrPlantilla();
+
+// $index = new ControladorPlantilla();
+// $index -> ctrPlantilla();
