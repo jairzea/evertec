@@ -17,4 +17,16 @@ class ProductosTest extends TestCase
 		$this->assertArrayHaskey('nombre', $resultado);
 
 	}
+
+	/** @test **/
+	public function probarCrearProductos()
+	{
+		$datos = array('id' => '02',
+					   'nombre' => 'Producto de prueba');
+		
+		$resultado = ProductosControlador::ctrCrearProductos($datos);
+
+		$this->assertEquals(200, $resultado['status']);
+
+	}
 }
