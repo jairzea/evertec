@@ -40,8 +40,10 @@ class ProductosTest extends TestCase
 	/** @test **/
 	public function probarCrearUnProducto()
 	{
-		$datos = array('id' => '02',
-					   'nombre' => 'Producto de prueba');
+		$datos = array('nombreProducto' => 'Producto 1',
+					   'descripcionProducto' => 'Producto de prueba',
+					   'precioProducto' => '100000',
+					   'imgProducto' => 'https://i2.wp.com/www.zapatos.shopping/wp-content/uploads/2015/01/zapatos-hombre.jpg');
 		
 		$resultado = ProductosControlador::ctrCrearProductos($datos);
 

@@ -6,7 +6,7 @@ $(document).ready(function(){
   tablaProductos = $('.tablaPdoductos').DataTable({
       "ajax": {
         'method':'get',
-        "url": rutaBackend+"/productos",
+        "url": "ajax/productos.ajax.php",
         "dataSrc": "",
         "dataType": 'json',
          "data": d => {},
