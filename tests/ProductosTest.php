@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 require_once 'controladores/Productos.controlador.php';
+require_once 'modelos/Productos.modelo.php';
 
 /**
  * Pruebas
@@ -9,17 +10,35 @@ require_once 'controladores/Productos.controlador.php';
 class ProductosTest extends TestCase
 {
 	/** @test **/
-	public function probarMostarProductos()
+	public function probarMostarTodosLosProductos()
 	{
-		$resultado = ProductosControlador::ctrMostrarProductos();
+		$item = null;
+		$valor = null;
 
-		$this->assertArrayHaskey('id', $resultado);
-		$this->assertArrayHaskey('nombre', $resultado);
+		$resultado = ProductosControlador::ctrMostrarProductos($item, $valor);
+
+		$this->assertArrayHaskey('id', $resultado[0]);
+		$this->assertArrayHaskey('name', $resultado[0]);
+		$this->assertArrayHaskey('price', $resultado[0]);
 
 	}
 
 	/** @test **/
-	public function probarCrearProductos()
+	public function probarMostarUnSoloProducto()
+	{
+		$item = 'id';
+		$valor = 1;
+
+		$resultado = ProductosControlador::ctrMostrarProductos($item, $valor);
+
+		$this->assertArrayHaskey('id', $resultado);
+		$this->assertArrayHaskey('name', $resultado);
+		$this->assertArrayHaskey('price', $resultado);
+
+	}
+
+	/** @test **/
+	public function probarCrearUnProducto()
 	{
 		$datos = array('id' => '02',
 					   'nombre' => 'Producto de prueba');

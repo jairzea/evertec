@@ -6,10 +6,11 @@ class ProductosControlador
 	/*=========================================
 	=            Mostrar Productos            =
 	=========================================*/
-	static public function ctrMostrarProductos()
+	static public function ctrMostrarProductos($item, $valor)
 	{
-		$respuesta = array('id' => '01',
-						   'nombre' => 'producto');
+		$tabla = "products";
+
+		$respuesta = ProductosModelo::mdlMostrarProductos($tabla, $item, $valor);
 
 		return $respuesta;
 	}
