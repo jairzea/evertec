@@ -3,11 +3,11 @@
 ============================================*/
 $.ajax({
 
-    url: rutaBackend+'/productos',
+    url: 'ajax/productos.ajax.php',
     method: 'GET',
     dataType: 'json',
     success: function(respuesta){
-    	console.log("respuesta", respuesta);
+    	console.log("productos", respuesta);
 
     	for (var i = 0; i < respuesta.length; i++) {
 
