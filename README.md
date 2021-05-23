@@ -1,8 +1,14 @@
-# evertec Tienda online
+# evertec Tienda en linea
 
-### CONFIGURAR PROYECTO LOCAL O PRODUCCIÓN
- 
->Modifique el archivo de configuración .env_example con los siguientes variables de entorno:
+### CONFIGURAR PROYECTO LOCAL
+
+>Paso 1) Realice un:  git clone https://github.com/jairzea/evertec.git o descargue el .zip del proyecto
+
+>Paso 2) Cree una base de datos en su servidor de nombre: evertec - si desea colocar otro nombre, debe modificar el archivo de configuración tal y como se le indica en el siguiente paso.
+
+>Paso 3) Importe la base de datos: evertec.sql en la BD que caba de crear
+
+>Paso 4)Modifique el archivo de configuración .env_example con los siguientes variables de entorno:
 ```HTML
 	HOST_NAME=SERVIDOR
 	DB_USER=USUARIO_BD
@@ -14,10 +20,12 @@
 	URL_REDIRECT=URL_DE_PAGO/REDIRECT/WEB-CHEKOUT
 	PROJECT_FOLDER=EN CASO DE CAMBIAR LA CARPETA DEL PROYECTO, MODIFIQUE ESTA VARIABLE
 ```
+
 *Nota: el archivo .env_example contienen los datos por defecto para probar la tienda, asumiendo localhost 
 como servidor de pruebas, si no es necesario cambiar algunas variables de entorno, puede utilizar los mismos datos
 solo cambie el nombre del archivo de .env_example a .env*
 
+>Paso 5) Solo si obtiene errores al importar la base de datos:
 >CREACION DE VISTAS
 >>Cree las siguientes vistas en su base de datos, en caso de obtener algun error al momento de importar la BD
 ```HTML
