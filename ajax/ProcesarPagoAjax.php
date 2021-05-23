@@ -1,5 +1,7 @@
 <?php
 
+require_once "../controladores/Rutas.php";
+
 require_once "../controladores/Pagos.controlador.php";
 require_once "../modelos/Ordenes.modelo.php";
 require_once "../vendor/autoload.php";

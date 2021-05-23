@@ -108,32 +108,58 @@ class PagosControlador
 
             if ($response->isSuccessful()) {
 
-                echo '<pre>'; print_r($response); echo '</pre>';
+                switch ($response->status()->status()) {
 
-                if($response->status()->status() == 'PENDING'){
+                    case 'APPROVED':
+                        
+                        $datos = ['status'     => $response->payment[0]->status()->status(),
+                                  'message'    => $response->payment[0]->status()->message(),
+                                  'date_trans' => $response->payment[0]->status()->date(),
+                                  'method'     => $response->payment[0]->paymentMethodName(),
+                                  'ref_int'    => $response->payment[0]->internalReference(),
+                                  'bank'       => $response->payment[0]->issuerName(),
+                                  'reference'  => $reference
+                                ];
 
-                    $datos = ['status' => $response->status()->status()];
+                        break;
+                    
+                    case 'PENDING':
+                        
+                        $datos = ['status'     => $response->status()->status(),
+                                  'message'    => $response->status()->message(),
+                                  'date_trans' => $response->status()->date(),
+                                  'method'     => '',
+                                  'ref_int'    => '',
+                                  'bank'       => '',
+                                  'reference'  => $reference
+                                ];
 
-                }else{
+                        break;
 
-                    $datos = ['status' => $response->payment[0]->status()->status(),
-                              'message' => $response->payment[0]->status()->message(),
-                              'date_trans' => $response->payment[0]->status()->date(),
-                              'method' => $response->payment[0]->paymentMethodName(),
-                              'ref_int' => $response->payment[0]->internalReference(),
-                              'bank' => $response->payment[0]->issuerName(),
-                              'reference' => $reference
-                            ];
+                    default:
+                        
+                        $datos = ['status'     => $response->status()->status(),
+                                  'message'    => $response->status()->message(),
+                                  'date_trans' => $response->status()->date(),
+                                  'method'     => '',
+                                  'ref_int'    => '',
+                                  'bank'       => '',
+                                  'reference'  => $reference
+                                ];
+                            
+                        break;
                 }
 
-                    $actualizar_orden = OrdenesModelo::mdlActualizarOrdenRespuesta($tablaOrden, $datos);
-                
+
+                $actualizar_orden = OrdenesModelo::mdlActualizarOrdenRespuesta($tablaOrden, $datos);
+                                
                 if($actualizar_orden == 'ok'){
                     
-                    header ("Location: ".dirname(__DIR__).'/respuesta-pago');
+                    header ("Location: ".Ruta::ctrRuta().'respuesta-pago');
                     exit();
 
                 }
+
             } else {
 
                 print_r($response->status()->message() . "\n");
