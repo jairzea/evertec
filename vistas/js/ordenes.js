@@ -97,7 +97,7 @@ $('.btnRegistrarOrden').on('click', function(){
 
 	$.ajax({
 
-        url: rutaBackend+'/registro_ordenes',
+        url: 'ajax/CrearOrdenAjax.php',
         method: 'POST',
         dataType: 'json',
         data:{
@@ -107,6 +107,7 @@ $('.btnRegistrarOrden').on('click', function(){
           'id_producto' : $('#id_producto').val()
         },
         success: function(respuesta){
+        	console.log("respuesta", respuesta);
 
         	let username = respuesta['credenciales'].id_cliente;
 			let password = respuesta['credenciales'].llave_secreta;
@@ -129,13 +130,11 @@ $('.btnRegistrarOrden').on('click', function(){
 
 							headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
 							
-							fetch(rutaBackend+'/orden_activa', {
+							fetch('ajax/ResumenDeOrdenesAjax.php', {
 							 method: 'GET',
 							 headers: headers
 							}).then((response) => response.json())
 							.then((responseJson) => {
-
-								let datos = responseJson.orden;
 
 								var listaOrden = [];
 
@@ -145,15 +144,15 @@ $('.btnRegistrarOrden').on('click', function(){
 					        	=            Agregar informacion al localstorage            =
 					        	===========================================================*/
 
-					        	let precio = Number(datos[0]['precio_producto'] - datos[0]['precio_producto'] * 0.9)
+					        	let precio = Number(responseJson[0]['precio_producto'] - responseJson[0]['precio_producto'] * 0.9)
 
-					        	listaOrden.push({'nombre' : datos[0]['nombre'],
-										         'email' : datos[0]['email'],
-										         'nombre_producto' : datos[0]['nombre_producto'],
-										         'descripcion_producto': datos[0]['descripcion_producto'],
-										         'id_orden': datos[0]['id_orden'],
-										         'telefono': datos[0]['telefono'],
-										         'imagen': datos[0]['imagen_producto'],
+					        	listaOrden.push({'nombre' : responseJson[0]['nombre'],
+										         'email' : responseJson[0]['email'],
+										         'nombre_producto' : responseJson[0]['nombre_producto'],
+										         'descripcion_producto': responseJson[0]['descripcion_producto'],
+										         'id_orden': responseJson[0]['id_orden'],
+										         'telefono': responseJson[0]['telefono'],
+										         'imagen': responseJson[0]['imagen_producto'],
 										         'precio_producto': precio})
 
 					        	localStorage.setItem("listaProducto", JSON.stringify(listaOrden))

@@ -34,7 +34,10 @@ class OrdenesControlador
                 if ($respuesta == "ok") {
 
                 	$resultado = array('status' => 200, 
-                					   'detalle' => 'La Orden ha sido guardado correctamente');
+                					   'detalle' => 'La Orden ha sido guardado correctamente',
+                                       'credenciales' => array('id_cliente' => $datos['id_cliente'],
+                                                                'llave_secreta' => $datos['llave_secreta'])
+                                    );
 
                 }else{
 
