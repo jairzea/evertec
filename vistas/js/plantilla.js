@@ -38,6 +38,7 @@ $(".tablas").DataTable({
 });
 
 var rutaOculta = $("#rutaOculta").val();
+console.log("rutaOculta", rutaOculta);
 var rutaBackend = $("#rutaBackendOculta").val();
 
 /*=============================================

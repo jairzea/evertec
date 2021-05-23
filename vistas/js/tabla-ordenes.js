@@ -6,10 +6,13 @@ $(document).ready(function(){
   tabla = $('.tablaOrdenes').DataTable({
       "ajax": {
         'method':'get',
-        "url": rutaBackend+"/ver_ordenes_productos",
+        "url": "ajax/MostrarOrdenesAjax.php",
         "dataSrc": "",
         "dataType": 'json',
-         "data": d => {},
+         "data": d => {
+            d.item = '';
+            d.valor = '';
+         },
       },
       "columns": [
         { "data": "id_orden" },
@@ -18,12 +21,7 @@ $(document).ready(function(){
         { "data": "email" },
         { "data": "referencia_orden" },
         { "data": "created_at" },
-        { render: (data, type, row) => {
-          return `<div>
-                        <a href="${row.url_pago}">Url de pago</a>
-                  </div>`;
-                  }
-        },
+        { "data": "url_pago" },
         { "data": "nombre_producto" },
         { "data": "precio_producto" },
         { "data": "estado" },

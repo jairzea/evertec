@@ -20,7 +20,7 @@ class OrdenesModelo
 
 			$stmt -> execute();
 
-			return $stmt -> fetch();
+			return $stmt -> fetchAll();
 
 		}else{
 
@@ -43,14 +43,18 @@ class OrdenesModelo
 	REGISTRO DE Ordenes
 	=============================================*/
 
-	static public function mdlCrearOrdenes($tabla, $datos){
+	static public function mdlCrearOrden($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(name, description, price, img) VALUES (:nombre, :descripcion, :precio, :imagen)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(customer_name, customer_email, customer_mobile, id_product, status, id_cliente, llave_secreta, token) VALUES (:customer_name, :customer_email, :customer_mobile, :id_product, :status, :id_cliente, :llave_secreta, :token)");
 
-		$stmt->bindParam(":nombre", $datos["nombreOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":descripcion", $datos["descripcionOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":precio", $datos["precioOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":imagen", $datos["imgOrden"], PDO::PARAM_STR);
+		$stmt->bindParam(":customer_name", $datos["customer_name"], PDO::PARAM_STR);
+		$stmt->bindParam(":customer_mobile", $datos["customer_mobile"], PDO::PARAM_STR);
+		$stmt->bindParam(":customer_email", $datos["customer_email"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_product", $datos["id_product"], PDO::PARAM_STR);
+		$stmt->bindParam(":status", $datos["status"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_cliente", $datos["id_cliente"], PDO::PARAM_STR);
+		$stmt->bindParam(":llave_secreta", $datos["llave_secreta"], PDO::PARAM_STR);
+		$stmt->bindParam(":token", $datos["token"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 

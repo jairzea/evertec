@@ -8,7 +8,7 @@ class OrdenesControlador
 	=========================================*/
 	static public function ctrMostrarOrdenes($item, $valor)
 	{
-		$tabla = "orders";
+		$tabla = "vista_orders_products";
 
 		$respuesta = OrdenesModelo::mdlMostrarOrdenes($tabla, $item, $valor);
 
@@ -18,23 +18,23 @@ class OrdenesControlador
 	/*=======================================
 	=            Crear Ordenes            =
 	========================================*/
-	static public function ctrCrearOrdene($datos)
+	static public function ctrCrearOrden($datos)
 	{
 		
-		if (isset($datos["nombreOrden"])) {
+		if (isset($datos["customer_name"])) {
 
             if (
-                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $datos["nombreOrden"]))
+                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $datos["customer_name"]))
             {
 
                 $tabla = "orders";
 
-                $respuesta = OrdenesModelo::mdlCrearOrdene($tabla, $datos);
+                $respuesta = OrdenesModelo::mdlCrearOrden($tabla, $datos);
 
                 if ($respuesta == "ok") {
 
                 	$resultado = array('status' => 200, 
-                					   'detalle' => 'El Orden ha sido guardado correctamente');
+                					   'detalle' => 'La Orden ha sido guardado correctamente');
 
                 }else{
 
@@ -45,7 +45,7 @@ class OrdenesControlador
             }else{
 
             	$resultado = array('status' => 400, 
-                				   'detalle' => 'El nombre del Orden no puede ir vacío o llevar caracteres especiales!');
+                				   'detalle' => 'El nombre de la Orden no puede ir vacío o llevar caracteres especiales!');
 
             }
 

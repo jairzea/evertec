@@ -4,17 +4,19 @@
 $(document).ready(function(){
 
   email = localStorage.getItem("emaiOrdenes");
+  console.log("email", email);
   
   $('.nombreOrdenesUsr').append(email);
 
   tabla = $('.tablaOrdenesUsuarios').DataTable({
       "ajax": {
         'method':'post',
-        "url": rutaBackend+"/ver_ordenes_usuario",
+        "url": "ajax/MostrarOrdenesAjax.php",
         "dataSrc": "",
         "dataType": 'json',
          "data": d => { 
-            d.email = email;
+            d.item = 'email';
+            d.valor = email;
         },
       },
       "columns": [
@@ -78,13 +80,12 @@ $('.tablaOrdenesUsuarios').on('click', '.btnReintentarPago', function(){
 
   headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
   
-  fetch(rutaBackend+'/orden_activa', {
+  fetch('ajax/ResumenDeOrdenesAjax.php', {
    method: 'GET',
    headers: headers
   }).then((response) => response.json())
   .then((responseJson) => {
-
-    let datos = responseJson.orden;
+    console.log("responseJson", responseJson[0]);
 
     var listaOrden = [];
 
@@ -94,18 +95,19 @@ $('.tablaOrdenesUsuarios').on('click', '.btnReintentarPago', function(){
     =            Agregar informacion al localstorage            =
     ===========================================================*/
 
-    let precio = Number(datos[0]['precio_producto'] - datos[0]['precio_producto'] * 0.9)
+    let precio = Number(responseJson[0]['precio_producto'] - responseJson[0]['precio_producto'] * 0.9)
 
-    listaOrden.push({'nombre' : datos[0]['nombre'],
-             'email' : datos[0]['email'],
-             'nombre_producto' : datos[0]['nombre_producto'],
-             'descripcion_producto': datos[0]['descripcion_producto'],
-             'id_orden': datos[0]['id_orden'],
-             'telefono': datos[0]['telefono'],
-             'imagen': datos[0]['imagen_producto'],
+    listaOrden.push({'nombre' : responseJson[0]['nombre'],
+             'email' : responseJson[0]['email'],
+             'nombre_producto' : responseJson[0]['nombre_producto'],
+             'descripcion_producto': responseJson[0]['descripcion_producto'],
+             'id_orden': responseJson[0]['id_orden'],
+             'telefono': responseJson[0]['telefono'],
+             'imagen': responseJson[0]['imagen_producto'],
              'precio_producto': precio})
 
     localStorage.setItem("listaProducto", JSON.stringify(listaOrden))
+    console.log(listaOrden);
 
     window.location = rutaOculta+"resumen-de-orden";
 

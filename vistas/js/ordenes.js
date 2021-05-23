@@ -198,7 +198,7 @@ $('.btnConsultarOrden').on('click', function(){
 	const data = new FormData();
 	data.append('email', email);
 
-	fetch(rutaBackend+'/ver_ordenes_usuario', {
+	fetch("ajax/MostrarOrdenesAjax.php", {
 	method: 'POST',
 	body: data
 	}).then((response) => response.json())
