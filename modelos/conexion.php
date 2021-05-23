@@ -2,7 +2,7 @@
 
 
 // require_once $_SERVER['DOCUMENT_ROOT']."/evertec/vendor/autoload.php";
-require_once "C:/xampp/htdocs/evertec/vendor/autoload.php";
+require_once dirname(__DIR__)."/vendor/autoload.php";
 
 
 use Dotenv\Dotenv;

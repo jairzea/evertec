@@ -76,15 +76,14 @@ class OrdenesModelo
 	EDITAR Ordenes
 	=============================================*/
 
-	static public function mdlEditarOrden($tabla, $datos){
+	static public function mdlActualizarOrden($tabla, $respPlace){
 	
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET name = :nombre, description = :descripcion, price = :precio, img = :imagen WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET requestId = :requestId, reference = :reference, processUrl = :processUrl WHERE id = :id");
 
-		$stmt->bindParam(":nombre", $datos["nombreOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":descripcion", $datos["descripcionOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":precio", $datos["precioOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":imagen", $datos["imgOrden"], PDO::PARAM_STR);
-		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_STR);
+		$stmt->bindParam(":requestId", $respPlace["requestId"], PDO::PARAM_STR);
+		$stmt->bindParam(":reference", $respPlace["reference"], PDO::PARAM_STR);
+		$stmt->bindParam(":processUrl", $respPlace["processUrl"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $respPlace["id"], PDO::PARAM_STR);
 
 		if($stmt -> execute()){
 
@@ -104,14 +103,20 @@ class OrdenesModelo
 
 
 	/*=============================================
-	BORRAR USUARIO
+	ACTUALIZAR ORDEN SEGUN RESPUESTA DE PASARELA
 	=============================================*/
 
-	static public function mdlEliminarOrden($tabla, $datos){
+	static public function mdlActualizarOrdenRespuesta($tabla, $datos){
+	
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET status = :status, message = :message, date_trans = :date_trans, method = :method, ref_int = :ref_int, bank = :bank WHERE reference = :reference");
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
-
-		$stmt -> bindParam(":id", $datos, PDO::PARAM_INT);
+		$stmt->bindParam(":status", $datos["status"], PDO::PARAM_STR);
+		$stmt->bindParam(":message", $datos["message"], PDO::PARAM_STR);
+		$stmt->bindParam(":date_trans", $datos["date_trans"], PDO::PARAM_STR);
+		$stmt->bindParam(":method", $datos["method"], PDO::PARAM_STR);
+		$stmt->bindParam(":ref_int", $datos["ref_int"], PDO::PARAM_STR);
+		$stmt->bindParam(":bank", $datos["bank"], PDO::PARAM_STR);
+		$stmt->bindParam(":reference", $datos["reference"], PDO::PARAM_STR);
 
 		if($stmt -> execute()){
 
@@ -126,7 +131,6 @@ class OrdenesModelo
 		$stmt -> close();
 
 		$stmt = null;
-
 
 	}
 

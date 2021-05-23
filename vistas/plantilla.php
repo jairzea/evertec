@@ -24,7 +24,6 @@
 		
 		$url = Ruta::ctrRuta();
 		$archivoConfig = Ruta::ctrRutaArchivoConfig();
-		$urlBacken = Ruta::ctrRutaBacken();
 
 	?>
 
@@ -79,6 +78,19 @@
     <script src="<?php echo $url; ?>vistas/js/plugins/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo $url; ?>vistas/js/plugins/dataTables.responsive.min.js"></script>
     <script src="<?php echo $url; ?>vistas/js/plugins/responsive.bootstrap4.min.js"></script>
+
+    <!-- blockUI -->
+    <script src="<?php echo $url; ?>vistas/dist/js/jquery.blockUI.js"></script>
+    <script type="text/javascript">
+        $(document).ajaxStop(function() {
+            $.unblockUI();
+        }).ajaxStart(function() {
+            $.blockUI({
+                message: '<img src="vistas/img/plantilla/ajax-loader.gif" style="z-index:1"/> Espere un momento por favor...',
+                baseZ: 2000
+            });
+        });
+    </script>
 
 </head>
 

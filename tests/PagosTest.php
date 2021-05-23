@@ -12,15 +12,14 @@ class PagosTest extends TestCase
 	public function probarMetodoProcesarPago()
 	{
 
-		$datos = array('id_orden' => 'Zapatos elegantes 3',
-					   'descripcion' => 'jairzeapaez@gmail.com',
-					   'precio' => '3217098185');
+		$datos = array('id_orden' => '3',
+					   'descripcion' => 'Lorem Ipsum es simplemente ',
+					   'precio' => '30000');
 
 
 		$resultado = PagosControlador::ctrProcesarPago($datos);
-		echo '<pre>'; print_r($resultado); echo '</pre>';
 
-		// $this->assertEquals(200, $resultado['status']);
+		$this->assertEquals(200, $resultado['status']);
 
 	}
 

@@ -33,43 +33,36 @@ $('.btnRealizarPago').on('click', function(){
 
 	if (texto.length >= 10) {
       var textCort = texto.substring(0, 10) + '...';
-   }
+    }
 
-	const data = new FormData();
-	data.append('precio', datos[0]['precio_producto']);
-	data.append('descripcion', textCort);
-	data.append('id_orden', datos[0]['id_orden']);
-	data.append('urlRetorno', rutaBackend+'/respuestaPago');
+	$.ajax({
+		url: 'ajax/ProcesarPagoAjax.php',
+        method: 'POST',
+        dataType: 'json',
+        data:{
+          'precio': datos[0]['precio_producto'],
+          'descripcion' : textCort, 
+          'id_orden' : datos[0]['id_orden'],
+        },
+        success: function(respuesta){
+        	console.log("respuesta", respuesta);
 
-	fetch(rutaBackend+'/pagar', {
-	 method: 'POST',
-	 body: data
-	}).then((response) => response.json())
-	.then((responseJson) => {
-		console.log(responseJson);
+        	if (respuesta['requestId']) {
 
-		if (responseJson['requestId']) {
+				window.open(respuesta['processUrl'], '_blank');
 
-			window.open(responseJson['processUrl'], '_blank');
+			}else{
 
-		}else{
-
-			swal({
-	          type:"error",
-	          title: responseJson,
-	          showConfirmButton: true,
-	          confirmButtonText: "Cerrar"
-	        
-	      	})
-		}
-
-		
-
-	}).catch((error) => {
-
-		console.error(error)
-		
-	});
+				swal({
+		          type:"error",
+		          title: respuesta,
+		          showConfirmButton: true,
+		          confirmButtonText: "Cerrar"
+		        
+		      	})
+			}
+        }
+	})
 
 })
 
