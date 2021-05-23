@@ -1,6 +1,8 @@
 {
     "require": {
         "phpunit/phpunit": "^9.5",
-        "guzzlehttp/guzzle": "^7.3"
+        "guzzlehttp/guzzle": "^7.3",
+        "vlucas/phpdotenv": "^5.3",
+        "dnetix/redirection": "^1.0"
     }
 }

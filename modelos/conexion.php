@@ -1,13 +1,24 @@
 <?php
 
+
+// require_once $_SERVER['DOCUMENT_ROOT']."/evertec/vendor/autoload.php";
+require_once "C:/xampp/htdocs/evertec/vendor/autoload.php";
+
+
+use Dotenv\Dotenv;
+
 class Conexion{
 
 	static public function conectar(){
 
-		$servername = 'localhost';
-		$username = 'root';
-		$password = '';
-		$dbname = 'evertec';
+
+		$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+		$dotenv->load();
+
+		$servername = $_ENV['HOST_NAME'];
+		$username   = $_ENV['DB_USER'];
+		$password   = $_ENV['DB_PASSWORD'];
+		$dbname     = $_ENV['DB_NAME'];
 
 		$link = new PDO("mysql:host=$servername;dbname=$dbname",
 			            "$username",

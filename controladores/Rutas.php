@@ -9,7 +9,21 @@ class Ruta{
 	 */
 	public function ctrRuta(){
 
-		return "http://localhost/evertec/";
+		// return "http://localhost/evertec/";
+
+		if(isset($_SERVER['HTTPS'])){
+           
+           $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+       	
+       	}else{
+        
+           $protocol = 'http';
+
+       	}
+       	
+       	return $protocol . "://" . $_SERVER['HTTP_HOST'] . '/evertec/';
+		
+		// return $_SERVER['SERVER_NAME'];
 	
 	}
 
@@ -21,6 +35,12 @@ class Ruta{
 	public function ctrRutaBacken(){
 
 		return "http://apirest-tienda.evertec";
+	
+	}
+
+	public function ctrRutaArchivoConfig(){
+
+		return dirname(__DIR__);
 	
 	}
 

@@ -23,6 +23,7 @@
 		=============================================*/
 		
 		$url = Ruta::ctrRuta();
+		$archivoConfig = Ruta::ctrRutaArchivoConfig();
 		$urlBacken = Ruta::ctrRutaBacken();
 
 	?>

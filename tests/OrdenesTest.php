@@ -10,7 +10,7 @@ require_once 'modelos/Ordenes.modelo.php';
 class OrdenesTest extends TestCase
 {
 	/** @test **/
-	public function probarMostarTodosLosOrdenes()
+	public function probarMostarTodosLasOrdenes()
 	{
 		$item = null;
 		$valor = null;
