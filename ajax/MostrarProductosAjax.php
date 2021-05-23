@@ -3,10 +3,10 @@
 require_once "../controladores/Productos.controlador.php";
 require_once "../modelos/Productos.modelo.php";
 
-class AjaxProductos{
+class MostrarProductosAjax{
 
   /*=============================================
-  EDITAR PRODUCTO
+  MOSTRAR PRODUCTOS
   =============================================*/ 
 
   public function ajaxMostrarProductos(){
@@ -26,7 +26,7 @@ class AjaxProductos{
 MOSTRAR PRODUCTOS
 =============================================*/	
 
-$traerProductos = new AjaxProductos();
+$traerProductos = new MostrarProductosAjax();
 $traerProductos -> ajaxMostrarProductos();
 
 

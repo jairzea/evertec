@@ -24,8 +24,7 @@ class ProductosControlador
 		if (isset($datos["nombreProducto"])) {
 
             if (
-                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $datos["nombreProducto"]) &&
-                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $datos["descripcionProducto"]))
+                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $datos["nombreProducto"]))
             {
 
                 $tabla = "products";
@@ -35,18 +34,18 @@ class ProductosControlador
                 if ($respuesta == "ok") {
 
                 	$resultado = array('status' => 200, 
-                					   'mensaje' => 'El Producto ha sido guardado correctamente');
+                					   'detalle' => 'El Producto ha sido guardado correctamente');
 
                 }else{
 
                 	$resultado = array('status' => 400, 
-                					   'mensaje' => $respuesta[2]);
+                					   'detalle' => $respuesta[2]);
 
                 }
             }else{
 
             	$resultado = array('status' => 400, 
-                				   'mensaje' => 'El producto o su descripcion no pueden ir vacío o llevar caracteres especiales!');
+                				   'detalle' => 'El nombre del producto no puede ir vacío o llevar caracteres especiales!');
 
             }
 
@@ -55,5 +54,73 @@ class ProductosControlador
 
 	}
 	
+	/*=======================================
+	=            Editar Productos            =
+	========================================*/
+	static public function ctrEditarProductos($datos)
+	{
+		
+		if (isset($datos["nombreProducto"])) {
+
+            if (
+                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $datos["nombreProducto"]))
+            {
+
+                $tabla = "products";
+
+                $respuesta = ProductosModelo::mdlEditarProducto($tabla, $datos);
+
+                if ($respuesta == "ok") {
+
+                	$resultado = array('status' => 200, 
+                					   'detalle' => 'El Producto ha sido actualizado correctamente');
+
+                }else{
+
+                	$resultado = array('status' => 400, 
+                					   'detalle' => $respuesta[2]);
+
+                }
+            }else{
+
+            	$resultado = array('status' => 400, 
+                				   'detalle' => 'El nombre del producto no puede ir vacío o llevar caracteres especiales!');
+
+            }
+
+            return $resultado;
+        }
+
+	}
+
+	/*=============================================
+	ELIMINAR PODUCTO
+	=============================================*/
+	static public function ctrEliminarProducto($id){
+
+		if(isset($id) && !empty($id)){
+
+			$tabla ="products";
+			$datos = $id;
+
+			$respuesta = ProductosModelo::mdlEliminarProducto($tabla, $datos);
+
+			if ($respuesta == "ok") {
+
+            	$resultado = array('status' => 200, 
+            					   'detalle' => 'El Producto ha sido eliminado correctamente');
+
+            }else{
+
+            	$resultado = array('status' => 400, 
+            					   'detalle' => $respuesta[2]);
+
+            }
+
+            return $resultado;
+
+		}
+
+	}
 	
 }

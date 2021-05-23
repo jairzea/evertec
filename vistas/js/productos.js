@@ -3,7 +3,7 @@
 ============================================*/
 $.ajax({
 
-    url: 'ajax/productos.ajax.php',
+    url: 'ajax/MostrarProductosAjax.php',
     method: 'GET',
     dataType: 'json',
     success: function(respuesta){

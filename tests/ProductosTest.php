@@ -50,4 +50,30 @@ class ProductosTest extends TestCase
 		$this->assertEquals(200, $resultado['status']);
 
 	}
+
+	/** @test **/
+	public function probarEditarUnProducto()
+	{
+		$datos = array('nombreProducto' => 'Producto Editado',
+					   'descripcionProducto' => 'Producto de prueba',
+					   'precioProducto' => '100000',
+					   'imgProducto' => 'https://i2.wp.com/www.zapatos.shopping/wp-content/uploads/2015/01/zapatos-hombre.jpg',
+						'id' => 12);
+		
+		$resultado = ProductosControlador::ctrEditarProductos($datos);
+
+		$this->assertEquals(200, $resultado['status']);
+
+	}
+
+	/** @test **/
+	public function probarEliminarUnProducto()
+	{
+		$id = '19'; /*Asigne un ID existente para realizar la prueba*/
+		
+		$resultado = ProductosControlador::ctrEliminarProducto($id);
+
+		$this->assertEquals(200, $resultado['status']);
+
+	}
 }

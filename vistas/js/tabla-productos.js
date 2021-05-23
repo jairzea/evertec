@@ -6,7 +6,7 @@ $(document).ready(function(){
   tablaProductos = $('.tablaPdoductos').DataTable({
       "ajax": {
         'method':'get',
-        "url": "ajax/productos.ajax.php",
+        "url": "ajax/MostrarProductosAjax.php",
         "dataSrc": "",
         "dataType": 'json',
          "data": d => {},
@@ -95,54 +95,50 @@ $('#precioProducto').change(function(){
 ========================================*/
 $('.btnGuardarProducto').on('click', function(){
 
-  const data = new FormData();
-  data.append('nombre', $('#nombreProducto').val());
-  data.append('descripcion', $('#descripcionProducto').val());
-  data.append('precio', $('#precioProducto').val());
-  data.append('imagen', $('#imagenProducto').val());
+  $.ajax({
+    url: "ajax/CrearProductosAjax.php",
+    method: "POST",
+    dataType: "json",
+    data: {
+      nombreProducto: $('#nombreProducto').val(),
+      descripcionProducto: $('#descripcionProducto').val(),
+      precioProducto: $('#precioProducto').val(),
+      imgProducto: $('#imagenProducto').val()
+    },
+  }).done(function (respuesta) {
 
-  fetch(rutaBackend+'/registro_productos', {
-   method: 'POST',
-   body: data
-  }).then((response) => response.json())
-  .then((responseJson) => {
-
-    if (responseJson.status == 200) {
+    if (respuesta.status == 200) {
 
       swal({
         title:'Exito',
-        text: responseJson.detalle,
+        text: respuesta.detalle,
         type: 'success',
         showCancelButton: false,
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'Ok!'
        }).then(function(result){
 
-          $('#nombreProducto').val('');
-          $('#descripcionProducto').summernote('code','');
-          $('#precioProducto').val('');
-          $('#imagenProducto').val('');
-          tablaProductos.ajax.reload();
-          $('#modalProducto').modal('hide');
+        $('#nombreProducto').val('');
+        $('#descripcionProducto').summernote('code','');
+        $('#precioProducto').val('');
+        $('#imagenProducto').val('');
+        tablaProductos.ajax.reload();
+        $('#modalProducto').modal('hide');
 
-       })
+      })
 
     }else{
 
       swal({
           type:"error",
-          title: responseJson.detalle,
+          title: respuesta.detalle,
           showConfirmButton: true,
           confirmButtonText: "Cerrar"
         
       })
     }
-
-  }).catch((error) => {
-
-    console.error(error)
-    
-  });
+  
+  })
 
 })
 
@@ -180,46 +176,50 @@ $(".tablaPdoductos").on("click", ".btnModalEditarProducto", function(){
 ========================================*/
 $('.btnEditarProducto').on('click', function(){
 
-  const data = new FormData();
-  data.append('nombre', $('#nombreProducto').val());
-  data.append('descripcion', $('#descripcionProducto').val());
-  data.append('precio', $('#precioProducto').val());
-  data.append('imagen', $('#imagenProducto').val());
-  data.append('id', $('#idProducto').val());
+  $.ajax({
+    url: "ajax/EditarProductosAjax.php",
+    method: "POST",
+    dataType: "json",
+    data: {
+      nombreProducto: $('#nombreProducto').val(),
+      descripcionProducto: $('#descripcionProducto').val(),
+      precioProducto: $('#precioProducto').val(),
+      imgProducto: $('#imagenProducto').val(),
+      id: $('#idProducto').val()
+    },
+  }).done(function (respuesta) {
 
-  fetch(rutaBackend+'/editar_producto', {
-   method: 'POST',
-   body: data
-  }).then((response) => response.json())
-  .then((responseJson) => {
-
-    if (responseJson.status == 200) {
+    if (respuesta.status == 200) {
 
       swal({
         title:'Exito',
-        text: responseJson.detalle,
+        text: respuesta.detalle,
         type: 'success',
         showCancelButton: false,
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'Ok!'
        }).then(function(result){
 
-          tablaProductos.ajax.reload();
-          $('#modalProducto').modal('hide');
+        $('#nombreProducto').val('');
+        $('#descripcionProducto').summernote('code','');
+        $('#precioProducto').val('');
+        $('#imagenProducto').val('');
+        tablaProductos.ajax.reload();
+        $('#modalProducto').modal('hide');
 
-       })
+      })
 
     }else{
 
       swal({
           type:"error",
-          title: responseJson.detalle,
+          title: respuesta.detalle,
           showConfirmButton: true,
           confirmButtonText: "Cerrar"
         
       })
     }
-
+  
   })
 
 })
@@ -245,16 +245,21 @@ $(".tablaPdoductos").on("click", ".btnEliminarProducto", function(){
 
     if(result.value){
 
-      fetch(rutaBackend+'/borrar_producto/'+id, {
-      method: 'DELETE',
-      }).then((response) => response.json())
-      .then((responseJson) => {
+     $.ajax({
+      url: "ajax/EliminarProductosAjax.php",
+      method: "GET",
+      dataType: "json",
+      data: {
+        id: id,
+      },
+      success: function (respuesta) {
+        console.log("respuesta", respuesta);
 
-        if (responseJson.status == 200) {
+        if (respuesta.status == 200) {
 
           swal({
           title: 'Exito',
-          text: "¡El producto de borró correctamente!",
+          text: respuesta.detalle,
           type: 'success',
           showCancelButton: false,
           confirmButtonColor: '#3085d6',
@@ -270,17 +275,18 @@ $(".tablaPdoductos").on("click", ".btnEliminarProducto", function(){
 
           swal({
             type:"error",
-            title: responseJson.detalle,
+            title: respuesta.detalle,
             showConfirmButton: true,
             confirmButtonText: "Cerrar"
         
           })
         }
 
-      })
+      }
 
-    }
+    })
 
-   })
+   }
 
+})
 })

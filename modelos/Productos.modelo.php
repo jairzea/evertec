@@ -69,18 +69,18 @@ class ProductosModelo
 	}
 
 	/*=============================================
-	EDITAR USUARIO
+	EDITAR PRODUCTOS
 	=============================================*/
 
-	static public function mdlEditarUsuario($tabla, $datos){
+	static public function mdlEditarProducto($tabla, $datos){
 	
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, password = :password, perfil = :perfil, foto = :foto WHERE usuario = :usuario");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET name = :nombre, description = :descripcion, price = :precio, img = :imagen WHERE id = :id");
 
-		$stmt -> bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-		$stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
-		$stmt -> bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
-		$stmt -> bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
-		$stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
+		$stmt->bindParam(":nombre", $datos["nombreProducto"], PDO::PARAM_STR);
+		$stmt->bindParam(":descripcion", $datos["descripcionProducto"], PDO::PARAM_STR);
+		$stmt->bindParam(":precio", $datos["precioProducto"], PDO::PARAM_STR);
+		$stmt->bindParam(":imagen", $datos["imgProducto"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_STR);
 
 		if($stmt -> execute()){
 
@@ -103,7 +103,7 @@ class ProductosModelo
 	BORRAR USUARIO
 	=============================================*/
 
-	static public function mdlBorrarUsuario($tabla, $datos){
+	static public function mdlEliminarProducto($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
 
