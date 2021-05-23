@@ -8,7 +8,7 @@
 
 >Paso 3) Importe la base de datos: evertec.sql en la BD que caba de crear
 
->Paso 4) Modifique el archivo de configuración .env_example con los siguientes variables de entorno: (el nuevo archivo debe llamarse .env):
+>Paso 4) Modifique el archivo de configuración .env_example con las siguientes variables de entorno: (el nuevo archivo debe llamarse .env):
 ```HTML
 	HOST_NAME=SERVIDOR
 	DB_USER=USUARIO_BD
@@ -37,7 +37,7 @@ solo cambie el nombre del archivo de .env_example a .env*
 	ON orders.id_product = products.id
 ```
 ```HTML
-	//Vista para el relacion de ordenes y productos
+	//Vista para la relacion de ordenes y productos
 	CREATE OR REPLACE VIEW vista_orders_products AS
     SELECT o.customer_name AS nombre, o.customer_mobile AS telefono, o.customer_email AS email,
     o.created_at, o.id_product AS id_producto, o.status AS estado, o.processUrl AS url_pago, 
