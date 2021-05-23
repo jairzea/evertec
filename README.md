@@ -4,7 +4,7 @@
 
 >Paso 1) Realice un:  git clone https://github.com/jairzea/evertec.git o descargue el .zip del proyecto
 
->Paso 2) Cree una base de datos en su servidor de nombre: evertec - si desea colocar otro nombre, debe modificar el archivo de configuración tal y como se le indica en el siguiente paso.
+>Paso 2) Cree una base de datos en su servidor de nombre: evertec - si desea colocar otro nombre, debe modificar el archivo de configuración tal y como se le indica en el paso 4.
 
 >Paso 3) Importe la base de datos: evertec.sql en la BD que caba de crear
 
