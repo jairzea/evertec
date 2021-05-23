@@ -8,7 +8,7 @@
 
 >Paso 3) Importe la base de datos: evertec.sql en la BD que caba de crear
 
->Paso 4)Modifique el archivo de configuración .env_example con los siguientes variables de entorno:
+>Paso 4) Modifique el archivo de configuración .env_example con los siguientes variables de entorno: (el nuevo archivo debe llamarse .env):
 ```HTML
 	HOST_NAME=SERVIDOR
 	DB_USER=USUARIO_BD
