@@ -1,8 +1,13 @@
 <?php
 
+use Dotenv\Dotenv;
+
 class Ruta{
 
 	public function ctrRuta(){
+
+		$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+        $dotenv->load();
 
 
 		if(isset($_SERVER['HTTPS'])){
@@ -15,7 +20,7 @@ class Ruta{
 
        	}
        	
-       	return $protocol . "://" . $_SERVER['HTTP_HOST'] . '/evertec/';
+       	return $protocol . "://" . $_SERVER['HTTP_HOST'] . $_ENV['PROJECT_FOLDER'];
 			
 	}
 
