@@ -4,7 +4,7 @@ use Dotenv\Dotenv;
 
 class Ruta{
 
-	public function ctrRuta(){
+	static public function ctrRuta(){
 
 		$dotenv = Dotenv::createImmutable(dirname(__DIR__));
         $dotenv->load();
@@ -26,7 +26,7 @@ class Ruta{
 
 
 
-	public function ctrRutaArchivoConfig(){
+	static public function ctrRutaArchivoConfig(){
 
 		return dirname(__DIR__);
 	
