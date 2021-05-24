@@ -12,7 +12,7 @@ BANNER
 
 		<h2 style="color:#fff"><strong>90% off</strong></h1>
 
-		<h3 style="color:#fff">Termina el 31 de Enero</h3>
+		<h3 style="color:#fff">Termina el 31 de Mayo</h3>
 
 	</div>
 	
